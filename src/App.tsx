@@ -1,10 +1,15 @@
-import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
-function App() {
+const App = () => {
+  const [darkMode, setDarkMode] = useState<''| 'dark-mode'>('');
+  const handleDarkMode = () => {
+    darkMode ? setDarkMode("") : setDarkMode("dark-mode");
+  }
+  console.log(darkMode)
   return (
-    <div className="App">
+    <div className={"App " + darkMode} >
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -18,6 +23,7 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={() => handleDarkMode()}> { darkMode ? "set to Light Mode" :"set to Dark Mode" }</button>
       </header>
     </div>
   );
