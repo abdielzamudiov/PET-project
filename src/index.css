@@ -1,3 +1,9 @@
+::root {
+  --main-bkgd-color: white;
+  --dark-bkgd-color: #15202B;
+  --main-color: black;
+  --dark-color: white;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
