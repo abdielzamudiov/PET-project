@@ -1,30 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
+import { Navbar } from './components/Navbar';
+import { useEffect } from 'react';
+import { useSpotifyToken } from './contexts/SpotifyTokenContext';
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState<''| 'dark-mode'>('');
-  const handleDarkMode = () => {
-    darkMode ? setDarkMode("") : setDarkMode("dark-mode");
-  }
-  console.log(darkMode)
+  const [theme, setTheme] = useState< '' | 'dark-mode' >('');
+  
+  const { token, setToken } = useSpotifyToken();
+
+  const handletheme = () => {
+    theme ? setTheme("") : setTheme("dark-mode");
+  };
+
+  useEffect(() => {
+    const intializeSpotifyToken = async () => {
+      !token && await setToken?.();
+      console.log(token);
+    };
+    intializeSpotifyToken();
+    //eslint-disable-next-line
+  },[]);
+
   return (
-    <div className={"App " + darkMode} >
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button onClick={() => handleDarkMode()}> { darkMode ? "set to Light Mode" :"set to Dark Mode" }</button>
-      </header>
+    <div className={"App " + theme} >
+      <Navbar handleTheme={handletheme} themeState={theme}>
+        
+      </Navbar>
     </div>
   );
 }
