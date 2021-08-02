@@ -1,14 +1,14 @@
 import { SyntheticEvent } from 'react';
 import { useRef } from 'react';
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa'
-import { useSpotifyToken } from '../../contexts/SpotifyTokenContext';
-import { fetchTracks } from '../../services/SpotifyAPI'
+import { useHistory } from 'react-router-dom';
+import { useSearch } from '../../contexts/SearchContext';
 
 interface Props {
   handleTheme: () => void;
   themeState: '' | 'dark-mode';
-  children: ReactNode
+  children?: ReactNode
 }
 interface Track {
   id?: string;
@@ -18,18 +18,15 @@ interface Track {
 }
 
 export const Navbar: React.FC<Props> = ({ handleTheme, themeState}) => {
+
+  const history = useHistory()
   const input = useRef<HTMLInputElement>(null);
-
-  const [tracks, setTracks] = useState<Array<Track>>([]);
-
-  const { token } = useSpotifyToken()
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
     const search = input?.current?.value || "";
-    console.log(token);
-    let response = await fetchTracks(token, search);
-    setTracks(response?.tracks?.items);
+
+    history.push(`/search/${search}`);
   };
   
   return (
@@ -43,22 +40,6 @@ export const Navbar: React.FC<Props> = ({ handleTheme, themeState}) => {
         <input ref={input} type="text"/>
         <button type="submit">fetch data</button>
       </form>
-    
-      <div style={{display: 'flex', flexDirection: 'column'}}>
-        {
-          tracks && tracks?.map( track => {
-            return (
-              <div> 
-                <p>Atrists: {track.artists?.map(artist => artist.name)}</p>
-                <p>Name: {track.name}</p>
-                <p>Album: {track.album?.name}</p>
-              </div>
-            )
-          }
-          )
-        }
-      </div>
-        
     </div>
   )
 }

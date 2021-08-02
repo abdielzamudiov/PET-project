@@ -15,7 +15,7 @@ export const fetchToken = async () => {
   .then(response => response.json());
 };
 
-export const fetchTracks = (token: string, search: string) =>{
+export const fetchTracks = async (token: string, search: string) => {
   return fetch(`https://api.spotify.com/v1/search?q=${search}&type=track`,{
     headers: {
       'Authorization': `Bearer ${token}`

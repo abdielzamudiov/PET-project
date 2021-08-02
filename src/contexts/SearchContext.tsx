@@ -2,14 +2,17 @@ import React, { createContext, ReactNode, useContext } from 'react'
 import { useState } from 'react';
 
 interface Context {
-  search?: string;
-  setSearch?: (search: string) => void;
+  search: string;
+  setSearch: (search: string) => void;
 }
 interface Props {
   children: ReactNode;
 }
 
-const SearchContext = createContext<Context>({});
+const SearchContext = createContext<Context>({
+  search: "",
+  setSearch: (string: string) => undefined
+});
 
 /**
  * 
@@ -25,7 +28,7 @@ export const useSearch = () => {
  */
 export const SearchProvider: React.FC<Props> = ({ children }) => {
 
-  const [search, setSearch] = useState<string>();
+  const [search, setSearch] = useState<string>("");
 
   const values = {
     search,
