@@ -10,12 +10,6 @@ interface Props {
   themeState: '' | 'dark-mode';
   children?: ReactNode
 }
-interface Track {
-  id?: string;
-  album?: { name?: string };
-  artists?: Array<{name?: string}>;
-  name?: string;
-}
 
 export const Navbar: React.FC<Props> = ({ handleTheme, themeState}) => {
 

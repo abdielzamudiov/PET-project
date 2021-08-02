@@ -9,10 +9,9 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  // Link
 } from 'react-router-dom';
 import { Home } from './pages/Home';
-import { Track } from './components/Track';
 
 
 const App = () => {
@@ -27,7 +26,6 @@ const App = () => {
   useEffect(() => {
     const intializeSpotifyToken = async () => {
       !token.token && await setToken?.();
-      console.log(token);
     };
     intializeSpotifyToken();
     //eslint-disable-next-line
@@ -40,7 +38,6 @@ const App = () => {
           <Navbar handleTheme={handletheme} themeState={theme}/>  
         </SearchProvider>
         {/* <button onClick={()=> setToken()}>token</button> */}
-      </div>
       
       <Switch>
         <Route path="/home">
@@ -50,8 +47,7 @@ const App = () => {
           {token.token && <TrackList/>}
         </Route>
       </Switch>
-
-
+      </div>
     </Router>
   );
 }
