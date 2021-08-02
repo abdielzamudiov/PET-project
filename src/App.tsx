@@ -12,6 +12,7 @@ import {
   // Link
 } from 'react-router-dom';
 import { Home } from './pages/Home';
+import { TrackReviews } from './pages/TrackReviews';
 
 
 const App = () => {
@@ -45,6 +46,9 @@ const App = () => {
         </Route>
         <Route path="/search/:search">
           {token.token && <TrackList/>}
+        </Route>
+        <Route path="/track/:trackId">
+          <TrackReviews/>
         </Route>
       </Switch>
       </div>

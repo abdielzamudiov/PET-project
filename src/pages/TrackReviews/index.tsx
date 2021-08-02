@@ -1,13 +1,13 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { SyntheticEvent } from 'react'
+import { useState, useRef } from 'react';
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { Track } from '../../components/Track';
 import { useSpotifyToken } from '../../contexts/SpotifyTokenContext';
 import { fetchTrack } from '../../services/SpotifyAPI';
-
+import { postReview, fetchReviews } from '../../services/ReviewsAPI';
 interface Params {
-  id: string;
+  trackId: string;
 }
 interface TrackType {
   id?: string;
@@ -15,20 +15,57 @@ interface TrackType {
   artists?: Array<{name?: string}>;
   name?: string;
 }
+interface Review {
+  user: string,
+  review: string,
+  track: string,
+  date: Date,
+}
 
 export const TrackReviews: React.FC = () => {
-  const { id } = useParams<Params>();
+  const { trackId } = useParams<Params>();
   const { token } = useSpotifyToken();
 
+  const input = useRef<HTMLInputElement>(null)
+
   const [track,setTrack] = useState<TrackType>();
+  const [reviews, setReviews] = useState<Review[]>();
+
+  const handleSubmit = async (e: SyntheticEvent) => {
+    try{
+      e.preventDefault();
+
+      const review = input?.current?.value || "";
+      const reviewObj: Review = {
+        user: "test user",
+        track: trackId,
+        review,
+        date: new Date()
+      };
+
+      const reviewAdded = await postReview(reviewObj);
+
+      if (reviewAdded.status !== 200)
+        throw reviewAdded.statusText;
+
+    }catch(e){
+      console.log(e);
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => { 
-      let results = await fetchTrack(token.token,id);
-      setTrack(results);
-
+      try{
+        let resultTracks = await fetchTrack(token.token,trackId);
+        let resultReviews = await fetchReviews(trackId);
+        setTrack(resultTracks);
+        setReviews(resultReviews);
+      } catch(e){
+        console.log(e)
+      }
     };
-  })
+    token.token && fetchData();
+  },[trackId, token])
 
   return (
     <div >
@@ -37,7 +74,13 @@ export const TrackReviews: React.FC = () => {
         artists = {track.artists}
         album = {track.album}
       />}
-      
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <input type="text" ref={input}/> 
+        <button type="submit">Submit review</button>
+      </form>
+      {/* { reviews && reviews.map( review => {
+        return JSON.stringify(review);
+      })} */}
     </div>
   )
 }

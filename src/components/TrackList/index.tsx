@@ -34,7 +34,6 @@ export const TrackList: React.FC<Props> = () => {
     <div style={{display:'flex', flexDirection: 'column'}}>
       {
         tracks && tracks.map( track => {
-          console.log(track);
           return (
             <Track
               key = {track.id}
