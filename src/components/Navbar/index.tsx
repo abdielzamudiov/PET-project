@@ -3,7 +3,6 @@ import { useRef } from 'react';
 import { ReactNode } from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom';
-import { useSearch } from '../../contexts/SearchContext';
 
 interface Props {
   handleTheme: () => void;
