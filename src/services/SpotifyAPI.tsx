@@ -23,3 +23,12 @@ export const fetchTracks = async (token: string, search: string) => {
   })
   .then(response => response.json());
 }
+
+export const fetchTrack = async (token: string, trackId: string) => {
+  return fetch(`https://api.spotify.com/v1/tracks/${trackId}`,{
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+  .then(response => response.json());
+}
