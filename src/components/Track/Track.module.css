@@ -1,0 +1,21 @@
+.track {
+  min-width: 500px;
+  max-width: 600px;
+  min-height: 100px;
+  background-color: var(--main-bkgd-color);
+  color: var(--main-color);
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+}
+.img{
+  max-width: 170px;
+}
+.imgContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.trackInfo{
+  flex-grow: 1;
+}

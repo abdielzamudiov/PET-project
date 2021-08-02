@@ -12,7 +12,7 @@ interface Params{
 }
 interface TrackType {
   id?: string;
-  album?: { name?: string };
+  album?: { name?: string, images?: Array<{url: string}> };
   artists?: Array<{name?: string}>;
   name?: string;
 }
@@ -34,9 +34,11 @@ export const TrackList: React.FC<Props> = () => {
     <div style={{display:'flex', flexDirection: 'column'}}>
       {
         tracks && tracks.map( track => {
+          console.log(track);
           return (
             <Track
               key = {track.id}
+              id = {track.id}
               name = {track.name}
               artists = {track.artists}
               album = {track.album}
