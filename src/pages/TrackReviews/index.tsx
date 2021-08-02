@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Track } from '../../components/Track';
 import { useSpotifyToken } from '../../contexts/SpotifyTokenContext';
 import { fetchTrack } from '../../services/SpotifyAPI';
-import { postReview, fetchReviews } from '../../services/ReviewsAPI';
+import { postReview } from '../../services/ReviewsAPI';
 import { ReviewList } from '../../components/ReviewList.tsx';
 interface Params {
   trackId: string;
