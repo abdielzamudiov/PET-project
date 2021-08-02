@@ -6,6 +6,7 @@ import { Track } from '../../components/Track';
 import { useSpotifyToken } from '../../contexts/SpotifyTokenContext';
 import { fetchTrack } from '../../services/SpotifyAPI';
 import { postReview, fetchReviews } from '../../services/ReviewsAPI';
+import { ReviewList } from '../../components/ReviewList.tsx';
 interface Params {
   trackId: string;
 }
@@ -26,10 +27,9 @@ export const TrackReviews: React.FC = () => {
   const { trackId } = useParams<Params>();
   const { token } = useSpotifyToken();
 
-  const input = useRef<HTMLInputElement>(null)
+  const input = useRef<HTMLInputElement>(null);
 
   const [track,setTrack] = useState<TrackType>();
-  const [reviews, setReviews] = useState<Review[]>();
 
   const handleSubmit = async (e: SyntheticEvent) => {
     try{
@@ -57,14 +57,15 @@ export const TrackReviews: React.FC = () => {
     const fetchData = async () => { 
       try{
         let resultTracks = await fetchTrack(token.token,trackId);
-        let resultReviews = await fetchReviews(trackId);
         setTrack(resultTracks);
-        setReviews(resultReviews);
+        
       } catch(e){
         console.log(e)
       }
     };
     token.token && fetchData();
+    console.log("aquia ndamos en el trackReviews");
+    
   },[trackId, token])
 
   return (
@@ -78,9 +79,7 @@ export const TrackReviews: React.FC = () => {
         <input type="text" ref={input}/> 
         <button type="submit">Submit review</button>
       </form>
-      {/* { reviews && reviews.map( review => {
-        return JSON.stringify(review);
-      })} */}
+      <ReviewList trackId={ trackId} />
     </div>
   )
 }

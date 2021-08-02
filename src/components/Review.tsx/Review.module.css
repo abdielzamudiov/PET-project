@@ -1,0 +1,20 @@
+.reviewContainer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  cursor: pointer;
+  flex-wrap: wrap;
+  max-width: 500px;
+}
+
+.reviewTextContainer{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.infoContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
