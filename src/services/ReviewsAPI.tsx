@@ -24,7 +24,7 @@ export const postReview = async (reviewObj: Review) => {
   });
 };
 
-export const fetchReviews = async (track: string) => {
+export const fetchReviewsOfTrack = async (track: string) => {
   return fetch(`http://localhost:8080/reviews/${track}`)
   .then(response => response.json());
 };
@@ -42,5 +42,16 @@ export const updateReview = async (review: ReviewUpdate) => {
     },
     body: JSON.stringify(review)
   })
+  .then(response => response.json());
+};
+
+export const deleteReview = async (reviewId: string) => {
+  return fetch(`http://localhost:8080/review/${reviewId}`,{
+    method: 'DELETE',
+  });
+};
+
+export const fetchReviews = async () => {
+  return fetch(`http://localhost:8080/reviews`)
   .then(response => response.json());
 };

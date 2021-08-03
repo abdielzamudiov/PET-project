@@ -14,6 +14,7 @@ import {
 import { Home } from './pages/Home';
 import { TrackReviews } from './pages/TrackReviews';
 import { ReviewViewer } from './pages/ReviewViewer.tsx';
+import { Login } from './pages/Login.tsx';
 
 
 const App = () => {
@@ -53,6 +54,9 @@ const App = () => {
         </Route>
         <Route path="/review/:reviewId">
           <ReviewViewer/>
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
       </Switch>
       </div>

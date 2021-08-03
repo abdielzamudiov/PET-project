@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useState } from 'react'
 import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom'
 import { Review } from '../../components/Review.tsx';
-import { fetchReview, updateReview } from '../../services/ReviewsAPI';
+import { fetchReview, updateReview, deleteReview } from '../../services/ReviewsAPI';
 import style from './ReviewViewer.module.css';
 
 interface Params {
@@ -44,6 +44,15 @@ export const ReviewViewer: React.FC = () => {
     }catch(e){
       console.log(e);
     }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await deleteReview(reviewId);
+      console.log(response);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
   useEffect(() => {
     let isSubscribed = true;
@@ -56,6 +65,7 @@ export const ReviewViewer: React.FC = () => {
       }
     };
     fetchData();
+    
     return () => {
       isSubscribed = false
     };
@@ -70,6 +80,7 @@ export const ReviewViewer: React.FC = () => {
         date = {review.date}
         track = {review.track}
       />}
+      <button onClick={() => handleDelete()}>delete</button>
       <form onSubmit={(e) => handleSubmit(e)}>
         <input type="text" ref={input}/> 
         <button type="submit">update review</button>

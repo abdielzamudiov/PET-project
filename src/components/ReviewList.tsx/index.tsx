@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSpotifyToken } from '../../contexts/SpotifyTokenContext';
-import { fetchReviews } from '../../services/ReviewsAPI';
+import { fetchReviewsOfTrack, fetchReviews } from '../../services/ReviewsAPI';
 import { Review } from '../Review.tsx';
 
 interface ReviewType {
@@ -20,14 +20,19 @@ export const ReviewList: React.FC<Props> = ({ trackId = ""}) => {
   useEffect(() => {
     const fetchData = async () => { 
       try{
-        let resultReviews = await fetchReviews(trackId);
+        let resultReviews;
+        resultReviews = trackId 
+          ? await fetchReviewsOfTrack(trackId)
+          : await fetchReviews();
         setReviews(resultReviews);
       } catch(e){
         console.log(e)
       }
     };
     token.token && fetchData();
-  },[trackId, token])
+  },[trackId, token]);
+
+
   return (
     <div>
       { reviews && reviews.map( review => {
