@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router-dom';
 import style from './Review.module.css';
 
 interface Props {
@@ -16,8 +17,14 @@ export const Review: React.FC<Props> = ({
   track,
   date
 }) => {
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push(`/review/${id}`);
+  };
+
   return (
-    <div className={style.reviewContainer}>
+    <div className={style.reviewContainer} onClick={() => handleClick()}>
       <div className={style.reviewTextContainer}>
         <p>{review}</p>
       </div>

@@ -13,6 +13,7 @@ import {
 } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { TrackReviews } from './pages/TrackReviews';
+import { ReviewViewer } from './pages/ReviewViewer.tsx';
 
 
 const App = () => {
@@ -49,6 +50,9 @@ const App = () => {
         </Route>
         <Route path="/track/:trackId">
           <TrackReviews/>
+        </Route>
+        <Route path="/review/:reviewId">
+          <ReviewViewer/>
         </Route>
       </Switch>
       </div>
