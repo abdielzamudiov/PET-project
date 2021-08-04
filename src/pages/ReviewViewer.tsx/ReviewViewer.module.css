@@ -1,0 +1,13 @@
+.updateBtnContainer {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.deleteBtnContainer{
+  margin-top: 10px;
+}
+
+.reviewContainer{
+  margin-top: 10px;
+}

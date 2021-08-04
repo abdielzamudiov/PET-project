@@ -1,5 +1,6 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { useEffect, useRef } from 'react';
+import { Button, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
 import { Review } from '../../components/Review.tsx';
 import { useAuth } from '../../contexts/AuthContext';
@@ -25,7 +26,7 @@ export const ReviewViewer: React.FC = () => {
 
   const [review, setReview] = useState<ReviewType>();
 
-  const input = useRef<HTMLInputElement>(null);
+  const input = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     try{
@@ -76,18 +77,34 @@ export const ReviewViewer: React.FC = () => {
 
   return (
     <div className={style.mainContainer}>
-      { review && <Review
-        id = {review._id}
-        user = {review.user}
-        review = {review.review}
-        date = {review.date}
-        track = {review.track}
-      />}
-      <button onClick={() => handleDelete()}>delete</button>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input type="text" ref={input}/> 
-        <button type="submit">update review</button>
-      </form>
+      <div className={style.reviewContainer}>
+        { review && <Review
+          id = {review._id}
+          user = {review.user}
+          review = {review.review}
+          date = {review.date}
+          track = {review.track}
+        />}
+      </div>
+      <div className={style.deleteBtnContainer}>
+        <Button 
+          onClick={() => handleDelete()}
+          variant='outline-danger'
+          >Delete</Button>
+      </div>
+      <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form.Group className="my-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Control 
+            as="textarea" 
+            placeholder="Say what you think..." 
+            rows={3} 
+            ref={input}
+            />
+        </Form.Group>
+        <div className={style.updateBtnContainer}>
+          <Button variant='outline-light' type="submit">Update Review</Button>
+        </div>
+      </Form>
     </div>
   )
 }
