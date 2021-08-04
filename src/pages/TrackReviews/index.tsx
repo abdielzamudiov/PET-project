@@ -78,19 +78,22 @@ export const TrackReviews: React.FC = () => {
         artists = {track.artists}
         album = {track.album}
       />}
-      <Form onSubmit={(e) => handleSubmit(e)}>
-        <Form.Group className="my-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Control 
-            as="textarea" 
-            placeholder="Say what you think..." 
-            rows={3} 
-            ref={input}
-            />
-        </Form.Group>
-        <div className={style.buttonContainer}>
-          <Button variant='outline-light' type="submit">Send Review</Button>
-        </div>
-      </Form>
+      { userToken && (
+        <Form onSubmit={(e) => handleSubmit(e)}>
+          <Form.Group className="my-3" controlId="exampleForm.ControlTextarea1">
+            <Form.Control 
+              as="textarea" 
+              placeholder="Say what you think..." 
+              rows={3} 
+              ref={input}
+              />
+          </Form.Group>
+          <div className={style.buttonContainer}>
+            <Button variant='outline-light' type="submit">Send Review</Button>
+          </div>
+        </Form>
+        )
+      }
       <ReviewList trackId={trackId} update={addedReview}/>
     </>
   )

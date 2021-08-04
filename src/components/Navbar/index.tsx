@@ -6,7 +6,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 
 export const NavbarCustom: React.FC = () => {
-  const { logout } = useAuth();
+  const { logout, username } = useAuth();
 
   const { theme, changeTheme } = useTheme();
 
@@ -27,10 +27,11 @@ export const NavbarCustom: React.FC = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link onClick={() => history.push('/home')}>Home</Nav.Link>
-            <Nav.Link onClick={() => history.push('/profile')}>My Profile</Nav.Link>
+            {username && <Nav.Link onClick={() => history.push('/profile')}>My Profile</Nav.Link>}
             <NavDropdown title="Settings" id="collasible-nav-dropdown">
-              <NavDropdown.Item onClick={() => { logout() }}>Log Out</NavDropdown.Item>
+              {username && <NavDropdown.Item onClick={() => { logout() }}>Log Out</NavDropdown.Item>}
               <NavDropdown.Item onClick={() => { changeTheme() }}>Change Theme</NavDropdown.Item>
+              {!username && <NavDropdown.Item onClick={() => history.push('/login')}>Login</NavDropdown.Item>}
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

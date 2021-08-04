@@ -22,7 +22,7 @@ export const ReviewViewer: React.FC = () => {
 
   const { reviewId } = useParams<Params>();
 
-  const { userToken } = useAuth()
+  const { userToken, username } = useAuth()
 
   const [review, setReview] = useState<ReviewType>();
 
@@ -86,25 +86,30 @@ export const ReviewViewer: React.FC = () => {
           track = {review.track}
         />}
       </div>
-      <div className={style.deleteBtnContainer}>
-        <Button 
-          onClick={() => handleDelete()}
-          variant='outline-danger'
-          >Delete</Button>
-      </div>
-      <Form onSubmit={(e) => handleSubmit(e)}>
-        <Form.Group className="my-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Control 
-            as="textarea" 
-            placeholder="Say what you think..." 
-            rows={3} 
-            ref={input}
-            />
-        </Form.Group>
-        <div className={style.updateBtnContainer}>
-          <Button variant='outline-light' type="submit">Update Review</Button>
-        </div>
-      </Form>
+      { username === review?.user && (
+        <>
+          <div className={style.deleteBtnContainer}>
+              <Button 
+              onClick={() => handleDelete()}
+              variant='outline-danger'
+              >Delete</Button>
+          </div>
+          <Form onSubmit={(e) => handleSubmit(e)}>
+            <Form.Group className="my-3" controlId="exampleForm.ControlTextarea1">
+              <Form.Control 
+                as="textarea" 
+                placeholder="Say what you think..." 
+                rows={3} 
+                ref={input}
+                />
+            </Form.Group>
+            <div className={style.updateBtnContainer}>
+              <Button variant='outline-light' type="submit">Update Review</Button>
+            </div>
+          </Form>
+        </>
+        )
+      }
     </div>
   )
 }
