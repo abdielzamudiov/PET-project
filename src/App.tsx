@@ -13,6 +13,7 @@ import { ReviewViewer } from './pages/ReviewViewer.tsx';
 import { Login } from './pages/Login.tsx';
 import { AuthProvider } from './contexts/AuthContext';
 import { useTheme } from './contexts/ThemeContext';
+import { Container } from 'react-bootstrap';
 
 
 const App = () => {
@@ -25,7 +26,7 @@ const App = () => {
       <AuthProvider>
         <div className={"App " + theme} >
           <NavbarCustom />  
-          <div className={'contentContainer'}>
+          <Container>
             <Switch>
               <Route path="/home">
                 <Home/>
@@ -43,7 +44,7 @@ const App = () => {
                 <Login />
               </Route>
             </Switch>
-          </div>
+          </Container>
         </div>
       </AuthProvider>
     </Router>

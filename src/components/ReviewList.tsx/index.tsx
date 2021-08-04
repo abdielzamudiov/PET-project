@@ -34,7 +34,7 @@ export const ReviewList: React.FC<Props> = ({ trackId = ""}) => {
 
 
   return (
-    <div>
+    <>
       { reviews && reviews.map( review => {
         return (
           <Review
@@ -47,6 +47,6 @@ export const ReviewList: React.FC<Props> = ({ trackId = ""}) => {
           />
         )
       })}
-    </div>
+    </>
   )
 }

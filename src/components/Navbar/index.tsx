@@ -43,9 +43,8 @@ export const NavbarCustom: React.FC = () => {
             className="mr-2"
             aria-label="Search"
             />
-          <Button variant={ theme === 'dark' ? 'outline-light' : 'outline-dark'} style={{marginLeft: '2px'}}>Search</Button>
+          <Button variant={ theme === 'dark' ? 'outline-light' : 'outline-dark'} style={{marginLeft: '2px'}} type="submit">Search</Button>
         </Form>
-
       </Container>
     </Navbar>
   )

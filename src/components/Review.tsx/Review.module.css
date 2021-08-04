@@ -4,15 +4,18 @@
   border: 1px solid black;
   cursor: pointer;
   flex-wrap: wrap;
-  max-width: 500px;
 }
 
 .reviewTextContainer{
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  align-items: center;
 }
 
+.user:hover{
+  text-decoration: underline;
+}
 .infoContainer{
   display: flex;
   flex-direction: row;
