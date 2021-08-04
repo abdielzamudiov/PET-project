@@ -1,6 +1,4 @@
-import React, { SyntheticEvent } from 'react'
-import { useState, useRef } from 'react';
-import { useEffect } from 'react'
+import { useState, useRef, useEffect, SyntheticEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import { Track } from '../../components/Track';
 import { useSpotifyToken } from '../../contexts/SpotifyTokenContext';
@@ -8,6 +6,7 @@ import { fetchTrack } from '../../services/SpotifyAPI';
 import { postReview } from '../../services/ReviewsAPI';
 import { ReviewList } from '../../components/ReviewList.tsx';
 import { useAuth } from '../../contexts/AuthContext';
+
 interface Params {
   trackId: string;
 }
@@ -70,7 +69,7 @@ export const TrackReviews: React.FC = () => {
   },[trackId, token])
 
   return (
-    <div >
+    <>
       {track && <Track
         name = {track.name}
         artists = {track.artists}
@@ -81,6 +80,6 @@ export const TrackReviews: React.FC = () => {
         <button type="submit">Submit review</button>
       </form>
       <ReviewList trackId={ trackId} />
-    </div>
+    </>
   )
 }

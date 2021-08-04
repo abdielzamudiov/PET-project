@@ -43,6 +43,7 @@ export const TrackList: React.FC<Props> = () => {
               name = {track.name}
               artists = {track.artists}
               album = {track.album}
+              listed = {true}
             />
           )
         })

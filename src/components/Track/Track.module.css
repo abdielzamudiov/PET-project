@@ -1,6 +1,5 @@
 .track {
   min-width: 350px;
-  width: 50%;
   background-color: var(--main-bkgd-color);
   color: var(--main-color);
   border: 1px solid black;
@@ -26,12 +25,12 @@
 }
 
 @media (min-width: 0px){
-  .track {
+  .track.listed{
       width: 100%;
   }
 }
 @media (min-width: 992px){
-  .track {
+  .track.listed{
       width: 50%;
   }
 }

@@ -7,13 +7,17 @@ interface Props {
   album?: { name?: string, images?: Array<{url: string}> };
   artists?: Array<{name?: string}>;
   name?: string;
+  listed?: boolean;
 }
 export const Track: React.FC<Props> = ({
   id,
   album,
   artists,
-  name
+  name,
+  listed
 }) => {
+  const additionalClassName = listed ? style.listed : '';
+
   const history = useHistory();
 
   const image = album?.images && album?.images[0].url;
@@ -23,7 +27,7 @@ export const Track: React.FC<Props> = ({
   }
 
   return (
-    <div className={style.track} onClick={() => handleTrackClick()}>
+    <div className={`${style.track} ${additionalClassName}`} onClick={() => handleTrackClick()}>
       <div className={style.imgContainer}>
         <img src={image} alt={album?.name} className={style.img}/>
       </div>
