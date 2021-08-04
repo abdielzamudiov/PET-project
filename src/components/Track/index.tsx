@@ -28,11 +28,15 @@ export const Track: React.FC<Props> = ({
         <img src={image} alt={album?.name} className={style.img}/>
       </div>
       <div className={style.trackInfo}>
-        {name}
-        <br />
-        {artists?.map((artist) => artist.name)}
-        <br />
-        {album?.name}
+        <div>
+          {name}
+        </div>
+        <div>
+          {artists?.map((artist) => artist.name)}
+        </div>
+        <div>
+          {album?.name}
+        </div>
       </div>
     </div>
   )

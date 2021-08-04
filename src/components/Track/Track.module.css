@@ -1,7 +1,6 @@
 .track {
-  min-width: 500px;
-  max-width: 600px;
-  min-height: 100px;
+  min-width: 350px;
+  width: 50%;
   background-color: var(--main-bkgd-color);
   color: var(--main-color);
   border: 1px solid black;
@@ -17,6 +16,22 @@
   justify-content: center;
   align-items: center;
 }
-.trackInfo{
+.trackInfo {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+@media (min-width: 0px){
+  .track {
+      width: 100%;
+  }
+}
+@media (min-width: 992px){
+  .track {
+      width: 50%;
+  }
 }

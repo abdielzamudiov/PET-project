@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { useSpotifyToken } from '../../contexts/SpotifyTokenContext';
 import { fetchTracks } from '../../services/SpotifyAPI';
 import { Track } from '../Track';
+import style from './TrackList.module.css';
+
 interface Props {
 
 }
@@ -31,7 +33,7 @@ export const TrackList: React.FC<Props> = () => {
   },[search, token]);
  
   return (
-    <div style={{display:'flex', flexDirection: 'column'}}>
+    <div className={style.trackListContainer}>
       {
         tracks && tracks.map( track => {
           return (
