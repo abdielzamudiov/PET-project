@@ -81,9 +81,7 @@ export const Login: React.FC = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" ref={password}/>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
+       
         <div className={style.buttonsContainer}>
           <Button 
             variant="outline-primary" 

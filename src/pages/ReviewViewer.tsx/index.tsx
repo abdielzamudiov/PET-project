@@ -2,10 +2,13 @@ import React, { SyntheticEvent, useState } from 'react'
 import { useEffect, useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom'
+import { Track } from '../../components/Track';
 import { Review } from '../../components/Review.tsx';
 import { useAuth } from '../../contexts/AuthContext';
+import { fetchTrack } from '../../services/SpotifyAPI';
 import { fetchReview, updateReview, deleteReview } from '../../services/ReviewsAPI';
 import style from './ReviewViewer.module.css';
+import { useSpotifyToken } from '../../contexts/SpotifyTokenContext';
 
 interface Params {
   reviewId: string;
@@ -17,13 +20,21 @@ interface ReviewType {
   track?: string;
   date?: Date;
 }
+interface TrackType {
+  id?: string;
+  album?: { name?: string, images?: Array<{url: string}> };
+  artists?: Array<{name?: string}>;
+  name?: string;
+}
 
 export const ReviewViewer: React.FC = () => {
   const history = useHistory();
   const { reviewId } = useParams<Params>();
+  const { token } = useSpotifyToken();
   const { userToken, username } = useAuth();
   const input = useRef<HTMLTextAreaElement>(null);
 
+  const [track,setTrack] = useState<TrackType>();
   const [review, setReview] = useState<ReviewType>();
 
 
@@ -64,6 +75,8 @@ export const ReviewViewer: React.FC = () => {
     const fetchData = async () => {
       try{
         let resultReviews = await fetchReview(reviewId);
+        let resultTracks = await fetchTrack(token.token,resultReviews.track);
+        setTrack(resultTracks);
         isSubscribed && setReview(resultReviews);
       } catch(e){
         console.log(e);
@@ -74,10 +87,15 @@ export const ReviewViewer: React.FC = () => {
     return () => {
       isSubscribed = false
     };
-  },[reviewId]);
+  },[reviewId, token.token]);
 
   return (
     <div className={style.mainContainer}>
+      {track && <Track
+        name = {track.name}
+        artists = {track.artists}
+        album = {track.album}
+      />}
       <div className={style.reviewContainer}>
         { review && <Review
           id = {review._id}
