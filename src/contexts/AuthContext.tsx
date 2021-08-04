@@ -30,15 +30,27 @@ const AuthContext = createContext<Context>({
   logout: () => undefined
 })
 
+/**
+ * 
+ * @returns an object with username, useraToken aka JWT, a function to login, another to signin and another to logout
+ */
 export const useAuth = () => {
   return useContext(AuthContext);
 }
 
-
+/**
+ * 
+ * Allows wrapped components to access AuthContext values, through useAuth custom hook
+ * 
+ */
 export const AuthProvider: React.FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserData | null>();
   const [loading, setLoading] = useState<boolean>(true);
 
+  /**
+   * function to login an user by authenticating and saving it in the local storage
+   * @param user an user Object
+   */
   const loginUser = async (user: User) => {
     let response = await login(user);
     
@@ -52,6 +64,10 @@ export const AuthProvider: React.FC = ({ children }) => {
     setCurrentUser(JSON.parse(currentLocalStorage));
   };
 
+  /**
+   * function to sign in an user, it also logs them in
+   * @param user An user Object
+   */
   const signinUser = async (user: User) => {
     let response = await signin(user);
     if (response.status !== 201 )
@@ -59,6 +75,9 @@ export const AuthProvider: React.FC = ({ children }) => {
     await loginUser(user);
   };
 
+  /**
+   * function to logout an user
+   */
   const logout = () => {
     localStorage.setItem('user','');
     setCurrentUser(null);
@@ -76,7 +95,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     login: loginUser,
     signin: signinUser,
     logout
-  }
+  };
+  
   return (
     <AuthContext.Provider value={value}>
       { !loading && children }

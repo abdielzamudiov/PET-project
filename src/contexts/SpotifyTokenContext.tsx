@@ -42,26 +42,23 @@ export const SpotifyTokenProvider: React.FC<Props> = ({ children }) => {
    * @returns Promise<void>
    */
   const setToken = async () => {
-    setLoading(true); // starts loading
-
     await fetchToken()
     .then(response => setTokenState({token: response.access_token}));
     
     setLoading(false);  //finishing loading, now will render children
-    console.log("Token Fetched");
   }
 
   useEffect(() => {
     setToken();
   },[])
 
-  const values = {
+  const value: Context = {
     token,
     setToken
   };
 
   return (
-    <SpotifyTokenContext.Provider value={values}>
+    <SpotifyTokenContext.Provider value={value}>
       { !loading && children }
     </SpotifyTokenContext.Provider>
   )

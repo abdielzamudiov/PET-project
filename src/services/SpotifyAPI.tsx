@@ -7,7 +7,6 @@ export const fetchToken = async () => {
   const clientId = process.env.REACT_APP_CLIENT_ID;
   const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
   
-  console.log("token started fetching");
   return fetch('https://accounts.spotify.com/api/token',{
     method :'POST',
     headers: {

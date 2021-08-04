@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { createContext } from 'react'
+
 interface Context {
   theme: 'light' | 'dark';
   changeTheme: () => void
@@ -10,10 +10,19 @@ const ThemeContext = createContext<Context>({
   changeTheme: () => undefined
 })
 
+/**
+ * 
+ * @returns an object with the current theme and a function to toggle it
+ */
 export const useTheme = () => {
   return useContext(ThemeContext);
 }
 
+/**
+ * 
+ * Allows wrapped components to access ThemeContext values, through useTheme custom hook
+ * 
+ */
 export const ThemeProvider: React.FC = ({ children }) => {
   const [theme, setTheme] = useState< 'light' | 'dark' >('light');
 
