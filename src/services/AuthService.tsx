@@ -3,6 +3,11 @@ interface User {
   password: string;
 }
 
+/**
+ * 
+ * @param user an user object to be registered
+ * @returns a fetch request to register an user
+ */
 export const signin = async (user: User) => {
   return fetch(`http://localhost:8080/users/signin`, {
     method: 'POST',
@@ -13,6 +18,11 @@ export const signin = async (user: User) => {
   });
 };
 
+/**
+ * 
+ * @param user an user object to be logged in
+ * @returns a fetch request that logs in an user and returns the username and the accesToken aka JWT
+ */
 export const login = async (user: User) => {
   console.log("starting");
   return fetch(`http://localhost:8080/users/login`, {
