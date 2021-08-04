@@ -1,3 +1,7 @@
+/**
+ * 
+ * @returns a fetch request that returns the token to make request to the spotify api
+ */
 export const fetchToken = async () => {
   //APP credentials for Spotify API
   const clientId = process.env.REACT_APP_CLIENT_ID;
@@ -15,6 +19,12 @@ export const fetchToken = async () => {
   .then(response => response.json());
 };
 
+/**
+ * 
+ * @param token spotify Api token
+ * @param search the string to search a track
+ * @returns a fetch request that returns the first 20 results of the search
+ */
 export const fetchTracks = async (token: string, search: string) => {
   return fetch(`https://api.spotify.com/v1/search?q=${search}&type=track`,{
     headers: {
