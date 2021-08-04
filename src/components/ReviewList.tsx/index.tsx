@@ -12,8 +12,9 @@ interface ReviewType {
 }
 interface Props {
   trackId?: string;
+  update?: Array<boolean>;
 }
-export const ReviewList: React.FC<Props> = ({ trackId = ""}) => {
+export const ReviewList: React.FC<Props> = ({ trackId = "", update}) => {
   const { token } = useSpotifyToken();
   const [reviews, setReviews] = useState<ReviewType[]>();
 
@@ -30,7 +31,7 @@ export const ReviewList: React.FC<Props> = ({ trackId = ""}) => {
       }
     };
     token.token && fetchData();
-  },[trackId, token]);
+  },[trackId, token, update]);
 
 
   return (

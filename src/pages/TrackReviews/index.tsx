@@ -6,6 +6,8 @@ import { fetchTrack } from '../../services/SpotifyAPI';
 import { postReview } from '../../services/ReviewsAPI';
 import { ReviewList } from '../../components/ReviewList.tsx';
 import { useAuth } from '../../contexts/AuthContext';
+import { Button, Form } from 'react-bootstrap';
+import style from './TrackReviews.module.css';
 
 interface Params {
   trackId: string;
@@ -27,9 +29,10 @@ export const TrackReviews: React.FC = () => {
   const { trackId } = useParams<Params>();
   const { token } = useSpotifyToken();
   const { userToken } = useAuth();
-  const input = useRef<HTMLInputElement>(null);
+  const input = useRef<HTMLTextAreaElement>(null);
 
   const [track,setTrack] = useState<TrackType>();
+  const [addedReview, setAddedReview] = useState<boolean[]>([false]);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     try{
@@ -44,7 +47,7 @@ export const TrackReviews: React.FC = () => {
       };
 
       const reviewAdded = await postReview(userToken, reviewObj);
-
+      setAddedReview([true]);
       if (reviewAdded.status !== 200)
         throw reviewAdded.statusText;
 
@@ -66,7 +69,7 @@ export const TrackReviews: React.FC = () => {
     token.token && fetchData();
     console.log("aquia ndamos en el trackReviews");
     
-  },[trackId, token])
+  },[trackId, token, addedReview])
 
   return (
     <>
@@ -75,11 +78,20 @@ export const TrackReviews: React.FC = () => {
         artists = {track.artists}
         album = {track.album}
       />}
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input type="text" ref={input}/> 
-        <button type="submit">Submit review</button>
-      </form>
-      <ReviewList trackId={ trackId} />
+      <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form.Group className="my-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Control 
+            as="textarea" 
+            placeholder="Say what you think..." 
+            rows={3} 
+            ref={input}
+            />
+        </Form.Group>
+        <div className={style.buttonContainer}>
+          <Button type="submit">Send Review</Button>
+        </div>
+      </Form>
+      <ReviewList trackId={trackId} update={addedReview}/>
     </>
   )
 }
