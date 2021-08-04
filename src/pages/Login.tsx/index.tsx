@@ -1,6 +1,4 @@
-import React, { ReactNode, SyntheticEvent } from 'react';
-import { useEffect } from 'react';
-import { useRef, useState } from 'react';
+import { useRef, useState,useEffect,ReactNode, SyntheticEvent } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -15,13 +13,13 @@ interface User {
 
 export const Login: React.FC = () => {
   const { login, signin, userToken } = useAuth()
+  const history = useHistory();
 
   const user = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
 
   const [error, setError] = useState<ReactNode>();
 
-  const history = useHistory();
 
   const handleSignIn = async(e: SyntheticEvent) => {
     e.preventDefault();

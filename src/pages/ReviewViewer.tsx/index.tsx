@@ -20,14 +20,12 @@ interface ReviewType {
 
 export const ReviewViewer: React.FC = () => {
   const history = useHistory();
-
   const { reviewId } = useParams<Params>();
-
   const { userToken, username } = useAuth();
+  const input = useRef<HTMLTextAreaElement>(null);
 
   const [review, setReview] = useState<ReviewType>();
 
-  const input = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     try{
@@ -45,7 +43,6 @@ export const ReviewViewer: React.FC = () => {
       const reviewUpdated = await updateReview(userToken,reviewObj);
 
       setReview(reviewUpdated);
-      
     }catch(e){
       console.log(e);
     }

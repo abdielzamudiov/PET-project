@@ -32,7 +32,10 @@ export const TrackReviews: React.FC = () => {
   const input = useRef<HTMLTextAreaElement>(null);
 
   const [track,setTrack] = useState<TrackType>();
+  
+  //state to check if a review was added and update the list
   const [addedReview, setAddedReview] = useState<boolean[]>([false]);
+
 
   const handleSubmit = async (e: SyntheticEvent) => {
     try{
@@ -47,10 +50,11 @@ export const TrackReviews: React.FC = () => {
       };
 
       const reviewAdded = await postReview(userToken, reviewObj);
-      setAddedReview([true]);
+      
       if (reviewAdded.status !== 200)
         throw reviewAdded.statusText;
-
+      
+      setAddedReview([true]);
     }catch(e){
       console.log(e);
     }
