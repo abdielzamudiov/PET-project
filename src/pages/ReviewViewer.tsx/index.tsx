@@ -36,7 +36,7 @@ export const ReviewViewer: React.FC = () => {
       const newReview = input?.current?.value || "";
       const reviewObj = {
         _id: reviewId,
-        user: "test user",
+        user: username,
         track: review?.track || "",
         review: newReview,
         date: new Date()
@@ -61,7 +61,7 @@ export const ReviewViewer: React.FC = () => {
       console.log(error.message);
     }
   };
-  
+
   useEffect(() => {
     let isSubscribed = true;
     const fetchData = async () => {
