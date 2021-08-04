@@ -1,7 +1,6 @@
 import './App.css';
 import { useState } from 'react';
 import { Navbar } from './components/Navbar';
-import { useEffect } from 'react';
 import { useSpotifyToken } from './contexts/SpotifyTokenContext';
 import { TrackList } from './components/TrackList';
 import { SearchProvider } from './contexts/SearchContext';
@@ -15,27 +14,21 @@ import { Home } from './pages/Home';
 import { TrackReviews } from './pages/TrackReviews';
 import { ReviewViewer } from './pages/ReviewViewer.tsx';
 import { Login } from './pages/Login.tsx';
+import { AuthProvider } from './contexts/AuthContext';
 
 
 const App = () => {
   const [theme, setTheme] = useState< '' | 'dark-mode' >('');
   
-  const { token, setToken } = useSpotifyToken();
+  const { token } = useSpotifyToken();
 
   const handletheme = () => {
     theme ? setTheme("") : setTheme("dark-mode");
   };
 
-  useEffect(() => {
-    const intializeSpotifyToken = async () => {
-      !token.token && await setToken?.();
-    };
-    intializeSpotifyToken();
-    //eslint-disable-next-line
-  },[]);
-
   return (
     <Router>
+      <AuthProvider>
       <div className={"App " + theme} >
         <SearchProvider>
           <Navbar handleTheme={handletheme} themeState={theme}/>  
@@ -60,6 +53,7 @@ const App = () => {
         </Route>
       </Switch>
       </div>
+      </AuthProvider>
     </Router>
   );
 }

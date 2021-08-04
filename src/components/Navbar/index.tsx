@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { ReactNode } from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface Props {
   handleTheme: () => void;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const Navbar: React.FC<Props> = ({ handleTheme, themeState}) => {
+  const { logout } = useAuth();
 
   const history = useHistory()
   const input = useRef<HTMLInputElement>(null);
@@ -24,6 +26,7 @@ export const Navbar: React.FC<Props> = ({ handleTheme, themeState}) => {
   
   return (
     <div>
+      <button onClick={() => logout()}>logout</button>
       { 
         themeState === '' 
           ? <FaMoon onClick={() => handleTheme()} />

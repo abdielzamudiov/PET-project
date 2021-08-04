@@ -2,6 +2,7 @@ import React, { SyntheticEvent, useState } from 'react'
 import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom'
 import { Review } from '../../components/Review.tsx';
+import { useAuth } from '../../contexts/AuthContext';
 import { fetchReview, updateReview, deleteReview } from '../../services/ReviewsAPI';
 import style from './ReviewViewer.module.css';
 
@@ -20,6 +21,8 @@ export const ReviewViewer: React.FC = () => {
 
   const { reviewId } = useParams<Params>();
 
+  const { userToken } = useAuth()
+
   const [review, setReview] = useState<ReviewType>();
 
   const input = useRef<HTMLInputElement>(null);
@@ -37,7 +40,7 @@ export const ReviewViewer: React.FC = () => {
         date: new Date()
       };
 
-      const reviewUpdated = await updateReview(reviewObj);
+      const reviewUpdated = await updateReview(userToken,reviewObj);
 
       setReview(reviewUpdated);
       
@@ -48,7 +51,7 @@ export const ReviewViewer: React.FC = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await deleteReview(reviewId);
+      const response = await deleteReview(userToken, reviewId);
       console.log(response);
     } catch (error) {
       console.log(error.message);

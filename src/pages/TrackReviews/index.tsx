@@ -7,6 +7,7 @@ import { useSpotifyToken } from '../../contexts/SpotifyTokenContext';
 import { fetchTrack } from '../../services/SpotifyAPI';
 import { postReview } from '../../services/ReviewsAPI';
 import { ReviewList } from '../../components/ReviewList.tsx';
+import { useAuth } from '../../contexts/AuthContext';
 interface Params {
   trackId: string;
 }
@@ -26,7 +27,7 @@ interface Review {
 export const TrackReviews: React.FC = () => {
   const { trackId } = useParams<Params>();
   const { token } = useSpotifyToken();
-
+  const { userToken } = useAuth();
   const input = useRef<HTMLInputElement>(null);
 
   const [track,setTrack] = useState<TrackType>();
@@ -43,7 +44,7 @@ export const TrackReviews: React.FC = () => {
         date: new Date()
       };
 
-      const reviewAdded = await postReview(reviewObj);
+      const reviewAdded = await postReview(userToken, reviewObj);
 
       if (reviewAdded.status !== 200)
         throw reviewAdded.statusText;

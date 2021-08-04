@@ -1,6 +1,8 @@
 import React, { ReactNode, SyntheticEvent } from 'react';
+import { useEffect } from 'react';
 import { useRef, useState } from 'react';
-import { signin, login } from '../../services/AuthService';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import style from './Login.module.css';
 
 interface User {
@@ -9,11 +11,14 @@ interface User {
 }
 
 export const Login: React.FC = () => {
+  const { login, signin, userToken } = useAuth()
 
   const user = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
 
   const [error, setError] = useState<ReactNode>();
+
+  const history = useHistory();
 
   const handleSignIn = async(e: SyntheticEvent) => {
     e.preventDefault();
@@ -23,10 +28,10 @@ export const Login: React.FC = () => {
           _id: user?.current?.value,
           password: password?.current?.value,
         };
-        let response = await signin(userObj);
-        if (response.status !== 201 )
-          throw response;
-        return setError(<></>);
+
+        await signin(userObj);
+
+        return history.push('/home');
       }
       return setError(<>Error algunos campos no se han llenado</>)
     } catch(error){
@@ -45,20 +50,21 @@ export const Login: React.FC = () => {
           _id: user?.current?.value,
           password: password?.current?.value,
         };
-        let response = await login(userObj);
-        console.log("finished")
-        if (response.status !== 201 && response.status !== 200)
-          throw response;
-        let credentials = await response.json();
-        console.log("succesfull", credentials)
-        return setError(<></>);
+       
+        await login(userObj);
+
+        return history.push('/home');
       }
       return setError(<>Error algunos campos no se han llenado</>)
     } catch(error){
       setError(<>{error?.statusText}</>)
     }
   };
-
+  
+  useEffect(() => {
+    userToken && history.push('/home');
+  });
+  
   return (
     <div >
       <form className={style.loginContainer}>

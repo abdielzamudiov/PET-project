@@ -1,3 +1,4 @@
+
 interface Review {
   user: string,
   review: string,
@@ -14,10 +15,11 @@ export const testFetch = async () => {
   .then(response => response.json());
 };
 
-export const postReview = async (reviewObj: Review) => {
+export const postReview = async (token: string, reviewObj: Review) => {
   return fetch('http://localhost:8080/review',{
     method: 'POST',
     headers: {
+      'Authorization': `Bearer ${encodeURI(token)}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(reviewObj)
@@ -34,10 +36,11 @@ export const fetchReview = async (reviewId: string) => {
   .then(response => response.json());
 };
 
-export const updateReview = async (review: ReviewUpdate) => {
+export const updateReview = async (token: string, review: ReviewUpdate) => {
   return fetch(`http://localhost:8080/review`, {
     method: 'PUT',
     headers: {
+      'Authorization': `Bearer ${encodeURI(token)}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(review)
@@ -45,9 +48,13 @@ export const updateReview = async (review: ReviewUpdate) => {
   .then(response => response.json());
 };
 
-export const deleteReview = async (reviewId: string) => {
+export const deleteReview = async (token: string,reviewId: string) => {
+
   return fetch(`http://localhost:8080/review/${reviewId}`,{
     method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${encodeURI(token)}`,
+    }
   });
 };
 

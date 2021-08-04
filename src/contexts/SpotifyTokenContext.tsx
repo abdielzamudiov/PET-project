@@ -1,4 +1,5 @@
 import React, { useContext,  useState, ReactNode, createContext } from 'react'
+import { useEffect } from 'react';
 import { fetchToken } from '../services/SpotifyAPI'
 interface State {
   token: string;
@@ -33,7 +34,7 @@ export const useSpotifyToken = () => {
 export const SpotifyTokenProvider: React.FC<Props> = ({ children }) => {
   
   const [token, setTokenState] = useState<State>({token: ""});
-  const [loading, setLoading] = useState<boolean>(false); //loading state 
+  const [loading, setLoading] = useState<boolean>(true); //loading state 
 
   /**
    * Async function that fetches and sets the token.
@@ -49,6 +50,10 @@ export const SpotifyTokenProvider: React.FC<Props> = ({ children }) => {
     setLoading(false);  //finishing loading, now will render children
     console.log("Token Fetched");
   }
+
+  useEffect(() => {
+    setToken();
+  },[])
 
   const values = {
     token,
