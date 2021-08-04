@@ -2,12 +2,10 @@ import './App.css';
 import { NavbarCustom } from './components/Navbar';
 import { useSpotifyToken } from './contexts/SpotifyTokenContext';
 import { TrackList } from './components/TrackList';
-import { SearchProvider } from './contexts/SearchContext';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  // Link
 } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { TrackReviews } from './pages/TrackReviews';
@@ -26,10 +24,7 @@ const App = () => {
     <Router>
       <AuthProvider>
         <div className={"App " + theme} >
-          <SearchProvider>
-            <NavbarCustom />  
-          </SearchProvider>
-          {/* <button onClick={()=> setToken()}>token</button> */}
+          <NavbarCustom />  
           <div className={'contentContainer'}>
             <Switch>
               <Route path="/home">
