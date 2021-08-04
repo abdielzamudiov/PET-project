@@ -1,4 +1,22 @@
 .loginContainer {
+  min-height: calc(100vh - 56px);
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.formContainer{
   display: flex;
   flex-direction: column;
+}
+.buttonsContainer{
+  display: flex;
+  justify-content: space-between;
+}
+.userIcon{
+  font-size: 100px;
+  margin-bottom: 10px;
+}
+.formContainer{
+  width: 300px;
 }
