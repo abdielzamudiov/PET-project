@@ -88,7 +88,7 @@ export const TrackReviews: React.FC = () => {
             />
         </Form.Group>
         <div className={style.buttonContainer}>
-          <Button type="submit">Send Review</Button>
+          <Button variant='outline-light' type="submit">Send Review</Button>
         </div>
       </Form>
       <ReviewList trackId={trackId} update={addedReview}/>

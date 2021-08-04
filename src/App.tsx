@@ -26,7 +26,7 @@ const App = () => {
       <AuthProvider>
         <div className={"App " + theme} >
           <NavbarCustom />  
-          <Container>
+          <Container className='extendContainer'>
             <Switch>
               <Route path="/home">
                 <Home/>
