@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useContext, useState } from 'react'
 import { createContext } from 'react'
 interface Context {
-  theme: string;
+  theme: 'light' | 'dark';
   changeTheme: () => void
 }
 const ThemeContext = createContext<Context>({

@@ -1,5 +1,5 @@
 import './App.css';
-import { Navbar } from './components/Navbar';
+import { NavbarCustom } from './components/Navbar';
 import { useSpotifyToken } from './contexts/SpotifyTokenContext';
 import { TrackList } from './components/TrackList';
 import { SearchProvider } from './contexts/SearchContext';
@@ -25,30 +25,31 @@ const App = () => {
   return (
     <Router>
       <AuthProvider>
-      <div className={"App " + theme} >
-        <SearchProvider>
-          <Navbar />  
-        </SearchProvider>
-        {/* <button onClick={()=> setToken()}>token</button> */}
-      
-      <Switch>
-        <Route path="/home">
-          <Home/>
-        </Route>
-        <Route path="/search/:search">
-          {token.token && <TrackList/>}
-        </Route>
-        <Route path="/track/:trackId">
-          <TrackReviews/>
-        </Route>
-        <Route path="/review/:reviewId">
-          <ReviewViewer/>
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Switch>
-      </div>
+        <div className={"App " + theme} >
+          <SearchProvider>
+            <NavbarCustom />  
+          </SearchProvider>
+          {/* <button onClick={()=> setToken()}>token</button> */}
+          <div className={'contentContainer'}>
+            <Switch>
+              <Route path="/home">
+                <Home/>
+              </Route>
+              <Route path="/search/:search">
+                {token.token && <TrackList/>}
+              </Route>
+              <Route path="/track/:trackId">
+                <TrackReviews/>
+              </Route>
+              <Route path="/review/:reviewId">
+                <ReviewViewer/>
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+            </Switch>
+          </div>
+        </div>
       </AuthProvider>
     </Router>
   );

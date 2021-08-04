@@ -1,16 +1,11 @@
 import { SyntheticEvent } from 'react';
 import { useRef } from 'react';
-import { ReactNode } from 'react'
-import { FaMoon, FaSun } from 'react-icons/fa'
+import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 
-interface Props {
- 
-}
-
-export const Navbar: React.FC<Props> = () => {
+export const NavbarCustom: React.FC = () => {
   const { logout } = useAuth();
 
   const { theme, changeTheme } = useTheme();
@@ -26,17 +21,32 @@ export const Navbar: React.FC<Props> = () => {
   };
   
   return (
-    <div>
-      <button onClick={() => logout()}>logout</button>
-      { 
-        theme === 'light' 
-          ? <FaMoon onClick={() => changeTheme()} />
-          : <FaSun onClick={() => changeTheme()}/>
-      }
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input ref={input} type="text"/>
-        <button type="submit">fetch data</button>
-      </form>
-    </div>
+    <Navbar collapseOnSelect expand="lg" bg={theme} variant={theme}>
+      <Container>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link onClick={() => history.push('/home')}>Home</Nav.Link>
+            <Nav.Link onClick={() => history.push('/profile')}>My Profile</Nav.Link>
+            <NavDropdown title="Settings" id="collasible-nav-dropdown">
+              <NavDropdown.Item onClick={() => { logout() }}>Log Out</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => { changeTheme() }}>Change Theme</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+        
+        <Form className="d-flex" onSubmit={(e) => handleSubmit(e)}>
+          <FormControl
+            ref={input} 
+            type="search"
+            placeholder="Search"
+            className="mr-2"
+            aria-label="Search"
+            />
+          <Button variant={ theme === 'dark' ? 'outline-light' : 'outline-dark'} style={{marginLeft: '2px'}}>Search</Button>
+        </Form>
+
+      </Container>
+    </Navbar>
   )
 }

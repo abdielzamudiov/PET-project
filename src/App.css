@@ -1,16 +1,17 @@
-.App {
-  text-align: center;
+.App{
   background-color: var(--main-bkgd-color);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: var(--main-color);
+  justify-content: center;
 }
 
 .dark {
   --main-bkgd-color: #15202B;
   --main-color: white;
+}
+
+.contentContainer {
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

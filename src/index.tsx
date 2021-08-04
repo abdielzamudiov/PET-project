@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { SpotifyTokenProvider } from './contexts/SpotifyTokenContext';
 import { ThemeProvider } from './contexts/ThemeContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
