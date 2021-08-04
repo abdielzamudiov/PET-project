@@ -27,7 +27,7 @@ export const NavbarCustom: React.FC = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link onClick={() => history.push('/home')}>Home</Nav.Link>
-            {username && <Nav.Link onClick={() => history.push('/profile')}>My Profile</Nav.Link>}
+            {username && <Nav.Link onClick={() => history.push(`/user/${username}`)}>My Profile</Nav.Link>}
             <NavDropdown title="Settings" id="collasible-nav-dropdown">
               {username && <NavDropdown.Item onClick={() => { logout() }}>Log Out</NavDropdown.Item>}
               <NavDropdown.Item onClick={() => { changeTheme() }}>Change Theme</NavDropdown.Item>
