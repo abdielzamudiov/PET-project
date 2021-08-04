@@ -1,5 +1,4 @@
 import './App.css';
-import { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { useSpotifyToken } from './contexts/SpotifyTokenContext';
 import { TrackList } from './components/TrackList';
@@ -15,23 +14,20 @@ import { TrackReviews } from './pages/TrackReviews';
 import { ReviewViewer } from './pages/ReviewViewer.tsx';
 import { Login } from './pages/Login.tsx';
 import { AuthProvider } from './contexts/AuthContext';
+import { useTheme } from './contexts/ThemeContext';
 
 
 const App = () => {
-  const [theme, setTheme] = useState< '' | 'dark-mode' >('');
   
+  const { theme } = useTheme();
   const { token } = useSpotifyToken();
-
-  const handletheme = () => {
-    theme ? setTheme("") : setTheme("dark-mode");
-  };
 
   return (
     <Router>
       <AuthProvider>
       <div className={"App " + theme} >
         <SearchProvider>
-          <Navbar handleTheme={handletheme} themeState={theme}/>  
+          <Navbar />  
         </SearchProvider>
         {/* <button onClick={()=> setToken()}>token</button> */}
       

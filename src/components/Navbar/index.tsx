@@ -4,15 +4,16 @@ import { ReactNode } from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface Props {
-  handleTheme: () => void;
-  themeState: '' | 'dark-mode';
-  children?: ReactNode
+ 
 }
 
-export const Navbar: React.FC<Props> = ({ handleTheme, themeState}) => {
+export const Navbar: React.FC<Props> = () => {
   const { logout } = useAuth();
+
+  const { theme, changeTheme } = useTheme();
 
   const history = useHistory()
   const input = useRef<HTMLInputElement>(null);
@@ -28,9 +29,9 @@ export const Navbar: React.FC<Props> = ({ handleTheme, themeState}) => {
     <div>
       <button onClick={() => logout()}>logout</button>
       { 
-        themeState === '' 
-          ? <FaMoon onClick={() => handleTheme()} />
-          : <FaSun onClick={() => handleTheme()}/>
+        theme === 'light' 
+          ? <FaMoon onClick={() => changeTheme()} />
+          : <FaSun onClick={() => changeTheme()}/>
       }
       <form onSubmit={(e) => handleSubmit(e)}>
         <input ref={input} type="text"/>
