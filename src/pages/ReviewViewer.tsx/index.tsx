@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { useEffect, useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Review } from '../../components/Review.tsx';
 import { useAuth } from '../../contexts/AuthContext';
 import { fetchReview, updateReview, deleteReview } from '../../services/ReviewsAPI';
@@ -19,10 +19,11 @@ interface ReviewType {
 }
 
 export const ReviewViewer: React.FC = () => {
+  const history = useHistory();
 
   const { reviewId } = useParams<Params>();
 
-  const { userToken, username } = useAuth()
+  const { userToken, username } = useAuth();
 
   const [review, setReview] = useState<ReviewType>();
 
@@ -53,11 +54,14 @@ export const ReviewViewer: React.FC = () => {
   const handleDelete = async () => {
     try {
       const response = await deleteReview(userToken, reviewId);
-      console.log(response);
+      if (response.status !== 200)
+        throw response.statusText;
+      history.goBack();
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
+  
   useEffect(() => {
     let isSubscribed = true;
     const fetchData = async () => {
@@ -65,7 +69,7 @@ export const ReviewViewer: React.FC = () => {
         let resultReviews = await fetchReview(reviewId);
         isSubscribed && setReview(resultReviews);
       } catch(e){
-        console.log(e)
+        console.log(e);
       }
     };
     fetchData();
