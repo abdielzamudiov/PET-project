@@ -6,6 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect
 } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { TrackReviews } from './pages/TrackReviews';
@@ -15,6 +16,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { useTheme } from './contexts/ThemeContext';
 import { Container } from 'react-bootstrap';
 import { UserProfile } from './pages/UserProfile';
+import { NotFound } from './pages/NotFound';
 
 
 const App = () => {
@@ -46,6 +48,12 @@ const App = () => {
               </Route>
               <Route path="/login">
                 <Login />
+              </Route>
+              <Route exact path="/">
+                <Redirect to="/home" />
+              </Route>
+              <Route path="*">
+                <NotFound />
               </Route>
             </Switch>
           </Container>
