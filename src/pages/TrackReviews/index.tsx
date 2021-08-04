@@ -28,7 +28,7 @@ interface Review {
 export const TrackReviews: React.FC = () => {
   const { trackId } = useParams<Params>();
   const { token } = useSpotifyToken();
-  const { userToken } = useAuth();
+  const { userToken, username } = useAuth();
   const input = useRef<HTMLTextAreaElement>(null);
 
   const [track,setTrack] = useState<TrackType>();
@@ -40,7 +40,7 @@ export const TrackReviews: React.FC = () => {
 
       const review = input?.current?.value || "";
       const reviewObj: Review = {
-        user: "test user",
+        user: username,
         track: trackId,
         review,
         date: new Date()
@@ -67,7 +67,6 @@ export const TrackReviews: React.FC = () => {
       }
     };
     token.token && fetchData();
-    console.log("aquia ndamos en el trackReviews");
     
   },[trackId, token, addedReview])
 
