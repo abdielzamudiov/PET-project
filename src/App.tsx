@@ -14,6 +14,7 @@ import { Login } from './pages/Login.tsx';
 import { AuthProvider } from './contexts/AuthContext';
 import { useTheme } from './contexts/ThemeContext';
 import { Container } from 'react-bootstrap';
+import { UserProfile } from './pages/UserProfile';
 
 
 const App = () => {
@@ -39,6 +40,9 @@ const App = () => {
               </Route>
               <Route path="/review/:reviewId">
                 <ReviewViewer/>
+              </Route>
+              <Route path="/user/:user">
+                <UserProfile/>
               </Route>
               <Route path="/login">
                 <Login />

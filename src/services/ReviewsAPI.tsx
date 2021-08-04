@@ -62,3 +62,8 @@ export const fetchReviews = async () => {
   return fetch(`http://localhost:8080/reviews`)
   .then(response => response.json());
 };
+
+export const fetchUserReviews = async (user: string) => {
+  return fetch(`http://localhost:8080/reviews/user/${user}`)
+  .then(response => response.json());
+}
